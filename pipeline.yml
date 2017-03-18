@@ -6,15 +6,15 @@ jobs:
       trigger: true
     - get: framework-snapshot
     - get: ci-git
-  - task: publish-jars
-    file: ci-git/tasks/publish-framework-jars/task.yml
+  - task: build-artifacts
+    file: ci-git/tasks/build-artifacts/task.yml
   - task: update-snapshot
     file: ci-git/tasks/update-snapshot.yml
   - put: framework-artifact
     params:
-      file: publish-jars-output/framework-*.jar
-      pom_file: publish-jars-output/framework-*.pom
-      version_file: publish-jars-output/version
+      file: build-artifacts-output/framework-*.jar
+      pom_file: build-artifacts-output/framework-*.pom
+      version_file: build-artifacts-output/version
   - put: framework-snapshot
     params: {repository: update-snapshot-output}
 

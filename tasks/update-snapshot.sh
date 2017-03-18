@@ -1,13 +1,12 @@
-#!/bin/sh
+#!/bin/bash
 
-set -e # fail fast
-set -x # print commands
+set -e
 
 git clone framework-snapshot update-snapshot-output
 
-if [ -f "publish-jars-output/snapshot" ]; then
+if [ -f "build-artifacts-output/snapshot" ]; then
 
-  cp publish-jars-output/snapshot update-snapshot-output/snapshot
+  cp build-artifacts-output/snapshot update-snapshot-output/snapshot
 
   cd update-snapshot-output
 

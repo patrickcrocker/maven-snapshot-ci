@@ -2,12 +2,14 @@ jobs:
 - name: test-and-publish-framework
   plan:
   - aggregate:
-    - get: framework-git
+    - get: pipeline
+      resource: ci-git
+    - get: project
+      resource: framework-git
       trigger: true
     - get: framework-snapshot
-    - get: ci-git
   - task: build-artifacts
-    file: ci-git/tasks/build-artifacts/task.yml
+    file: ci-git/tasks/build-artifacts.yml
   - task: update-snapshot
     file: ci-git/tasks/update-snapshot.yml
   - put: framework-artifact

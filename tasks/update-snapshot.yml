@@ -11,12 +11,12 @@ params:
   file:
 
 inputs:
-  - name: ci-git
+  - name: pipeline
   - name: framework-snapshot
-  - name: publish-jars-output
+  - name: build-artifacts-output
 
 outputs:
   - name: update-snapshot-output
 
 run:
-  path: ci-git/tasks/update-snapshot.sh
+  path: pipeline/tasks/update-snapshot.sh

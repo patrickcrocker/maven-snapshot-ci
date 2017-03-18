@@ -4,8 +4,8 @@ platform: linux
 image_resource:
   type: docker-image
   source:
-    repository: patrickcrocker/lotc
-    tag: '1.0.2-rc.2'
+    repository: patrickcrocker/lotc'
+    tag: '1.0.2-rc.3'
 
 params:
   file:
@@ -13,10 +13,11 @@ params:
 inputs:
   - name: ci-git
   - name: framework-version
+  - name: framework-snapshot
   - name: publish-jars-output
 
 outputs:
-  - name: update-snapshot-version-output
+  - name: update-snapshot-output
 
 run:
-  path: ci-git/tasks/update-snapshot-version.sh
+  path: ci-git/tasks/update-snapshot.sh

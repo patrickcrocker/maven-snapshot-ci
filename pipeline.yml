@@ -5,15 +5,12 @@ jobs:
     - get: framework-git
       trigger: true
     - get: framework-version
+    - get: framework-snapshot
     - get: ci-git
-  # - task: test-framework
-  #   file: ci-git/tasks/test-framework/task.yml
   - task: publish-jars
     file: ci-git/tasks/publish-framework-jars/task.yml
-  - task: update-snapshot-version
-    file: ci-git/tasks/update-snapshot-version.yml
-    params:
-      file: snapshot
+  - task: update-snapshot
+    file: ci-git/tasks/update-snapshot.yml
   - aggregate:
     - put: framework-artifact
       params:
@@ -22,26 +19,6 @@ jobs:
         version_file: framework-version/version
     # - put: framework-version
     #   params: {repository: update-snapshot-version-output}
-
-# - name: test-and-publish-client
-#   plan:
-#   - aggregate:
-#     - get: client-git
-#       trigger: true
-#     - get: framework-artifact
-#       trigger: true
-#       passed: [test-and-publish-framework]
-#     - get: ci-git
-#   - task: test
-#     file: ci-git/tasks/test-membership-grid/task.yml
-#   - task: publish-jars
-#     file: ci-git/tasks/publish-membership-grid-jars/task.yml
-#   - aggregate:
-#     - put: client-artifact
-#       params:
-#         file: publish-jars-output/client-1.0.0-SNAPSHOT.jar
-#         pom_file: publish-jars-output/client-*.pom
-#         version_file: client-git/version
 
 resource_types:
 - name: maven-resource
@@ -66,10 +43,20 @@ resources:
     private_key: {{git-private-key}}
 
 - name: framework-version
+  type: semver
+  source:
+    driver: git
+    initial_version: 1.0.0
+    uri: {{framework-version-uri}}
+    branch: {{framework-version-branch}}
+    file: version
+    private_key: {{git-private-key}}
+
+- name: framework-snapshot
   type: git
   source:
-    uri: {{framework-version-uri}}
-    branch: version
+    uri: {{framework-snapshot-uri}}
+    branch: {{framework-snapshot-branch}}
     private_key: {{git-private-key}}
 
 # - name: client-git

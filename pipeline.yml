@@ -20,6 +20,25 @@ jobs:
   - put: framework-snapshot
     params: {repository: update-snapshot-output}
 
+- name: test-and-publish-framework
+  plan:
+  - aggregate:
+    - get: pipeline
+    - get: project
+      resource: client-git
+      trigger: true
+    - get: framework-snapshot
+      trigger: true
+  - task: build-artifacts
+    file: pipeline/tasks/build-artifacts.yml
+  - put: framework-artifact
+    params:
+      file: build-artifacts-output/client-*.jar
+      pom_file: build-artifacts-output/client-*.pom
+      version_file: build-artifacts-output/version
+  - put: framework-snapshot
+    params: {repository: update-snapshot-output}
+
 resource_types:
 - name: maven-resource
   type: docker-image
@@ -59,12 +78,12 @@ resources:
     branch: {{framework-snapshot-branch}}
     private_key: {{git-private-key}}
 
-# - name: client-git
-#   type: git
-#   source:
-#     uri: {{client-git-uri}}
-#     branch: master
-#     private_key: {{git-private-key}}
+- name: client-git
+  type: git
+  source:
+    uri: {{client-git-uri}}
+    branch: master
+    private_key: {{git-private-key}}
 
 - name: framework-artifact
   type: maven-resource

@@ -18,6 +18,8 @@ params:
 inputs:
   - name: ci-git
   - name: framework-git
+  - name: framework-version
+  - name: framework-snapshot
 
 outputs:
   - name: publish-jars-output

@@ -1,6 +1,6 @@
 #!/bin/ash
 
-set -e -x
+set -e
 
 cd framework-git
 
@@ -9,7 +9,7 @@ args=""
 [ -n "$MAVEN_REPO_USERNAME" ] && args="$args -Drepository.username=$MAVEN_REPO_USERNAME";
 [ -n "$MAVEN_REPO_PASSWORD" ] && args="$args -Drepository.password=$MAVEN_REPO_PASSWORD";
 
-pomVersion=$(./mvnw help:evaluate -Dexpression=project.version 2>/dev/null | grep -e '^[[:digit:]]')
+pomVersion=$(./mvnw help:evaluate -Dexpression=project.version 2>/dev/null | grep -Ev '(^\[|Download\w+:)')
 
 echo "pomVersion=$pomVersion"
 #./mvnw install $args

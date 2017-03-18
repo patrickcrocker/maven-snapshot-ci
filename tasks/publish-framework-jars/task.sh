@@ -17,6 +17,6 @@ cd ..
 
 cp -R ~/.m2/repository/com/example/framework/$pomVersion/* publish-jars-output/.
 
-ls -al publish-jars-output
-
-cat publish-jars-output/maven-metadata-local.xml
+if [ -f "publish-jars-output/maven-metadata-local.xml" ]; then
+  cat maven-metadata-local.xml | xmllint --xpath '/metadata/versioning/lastUpdated/text()' - 2>/dev/null > publish-jars-output/snapshot
+fi

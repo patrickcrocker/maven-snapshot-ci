@@ -4,21 +4,19 @@ jobs:
   - aggregate:
     - get: framework-git
       trigger: true
-    - get: framework-version
     - get: framework-snapshot
     - get: ci-git
   - task: publish-jars
     file: ci-git/tasks/publish-framework-jars/task.yml
   - task: update-snapshot
     file: ci-git/tasks/update-snapshot.yml
-  - aggregate:
-    - put: framework-artifact
-      params:
-        file: publish-jars-output/framework-*.jar
-        pom_file: publish-jars-output/framework-*.pom
-        version_file: framework-version/version
-    # - put: framework-version
-    #   params: {repository: update-snapshot-version-output}
+  - put: framework-artifact
+    params:
+      file: publish-jars-output/framework-*.jar
+      pom_file: publish-jars-output/framework-*.pom
+      version_file: framework-version/version
+  - put: framework-snapshot
+    params: {repository: update-snapshot-output}
 
 resource_types:
 - name: maven-resource

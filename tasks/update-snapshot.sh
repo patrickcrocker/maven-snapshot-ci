@@ -5,12 +5,15 @@ set -x # print commands
 
 git clone framework-snapshot update-snapshot-output
 
-cd update-snapshot-output
-version=$(cat maven-metadata-local.xml | xmllint --xpath '/metadata/versioning/lastUpdated/text()' - 2>/dev/null)
-echo $version > snapshot
+if [ -f "publish-jars-output/snapshot" ]; then
 
-git config --global user.email "nobody@concourse.ci"
-git config --global user.name "Concourse"
+  cp publish-jars-output/snapshot update-snapshot-output/snapshot
 
-git add .
-git commit -m "bump to $version"
+  cd update-snapshot-output
+
+  git config --global user.email "nobody@concourse.ci"
+  git config --global user.name "Concourse"
+
+  git add .
+  git commit -m "bump to $(cat snapshot)"
+fi

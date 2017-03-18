@@ -71,3 +71,4 @@ resources:
     artifact: com.example:framework:pom
     username: {{nexus-username}}
     password: {{nexus-password}}
+    skip_cert_check: true

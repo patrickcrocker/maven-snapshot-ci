@@ -4,7 +4,7 @@ platform: linux
 image_resource:
   type: docker-image
   source:
-    repository: patrickcrocker/docker-lotc
+    repository: patrickcrocker/lotc
     tag: '1.0.2-rc.2'
 
 params:

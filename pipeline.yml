@@ -20,7 +20,7 @@ jobs:
   - put: framework-snapshot
     params: {repository: update-snapshot-output}
 
-- name: test-and-publish-framework
+- name: test-and-publish-client
   plan:
   - aggregate:
     - get: pipeline

@@ -3,15 +3,14 @@ jobs:
   plan:
   - aggregate:
     - get: pipeline
-      resource: ci-git
     - get: project
       resource: framework-git
       trigger: true
     - get: framework-snapshot
   - task: build-artifacts
-    file: ci-git/tasks/build-artifacts.yml
+    file: pipeline/tasks/build-artifacts.yml
   - task: update-snapshot
-    file: ci-git/tasks/update-snapshot.yml
+    file: pipeline/tasks/update-snapshot.yml
   - put: framework-artifact
     params:
       file: build-artifacts-output/framework-*.jar
@@ -28,7 +27,7 @@ resource_types:
     tag: latest
 
 resources:
-- name: ci-git
+- name: pipeline
   type: git
   source:
     uri: {{ci-git-uri}}

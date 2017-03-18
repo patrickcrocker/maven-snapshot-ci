@@ -4,37 +4,38 @@ jobs:
   - aggregate:
     - get: framework-git
       trigger: true
+    - get: framework-version
     - get: ci-git
-  - task: test-framework
-    file: ci-git/tasks/test-framework/task.yml
+  # - task: test-framework
+  #   file: ci-git/tasks/test-framework/task.yml
   - task: publish-jars
     file: ci-git/tasks/publish-framework-jars/task.yml
   - aggregate:
     - put: framework-artifact
       params:
-        file: publish-jars-output/framework-1.0.0-SNAPSHOT.jar
+        file: publish-jars-output/framework-*.jar
         pom_file: publish-jars-output/framework-*.pom
-        version_file: framework-git/version # version is always 1.0.0-SNAPSHOT
+        version_file: framework-version/version
 
-- name: test-and-publish-client
-  plan:
-  - aggregate:
-    - get: client-git
-      trigger: true
-    - get: framework-artifact
-      trigger: true
-      passed: [test-and-publish-framework]
-    - get: ci-git
-  - task: test
-    file: ci-git/tasks/test-membership-grid/task.yml
-  - task: publish-jars
-    file: ci-git/tasks/publish-membership-grid-jars/task.yml
-  - aggregate:
-    - put: client-artifact
-      params:
-        file: publish-jars-output/client-1.0.0-SNAPSHOT.jar
-        pom_file: publish-jars-output/client-*.pom
-        version_file: client-git/version
+# - name: test-and-publish-client
+#   plan:
+#   - aggregate:
+#     - get: client-git
+#       trigger: true
+#     - get: framework-artifact
+#       trigger: true
+#       passed: [test-and-publish-framework]
+#     - get: ci-git
+#   - task: test
+#     file: ci-git/tasks/test-membership-grid/task.yml
+#   - task: publish-jars
+#     file: ci-git/tasks/publish-membership-grid-jars/task.yml
+#   - aggregate:
+#     - put: client-artifact
+#       params:
+#         file: publish-jars-output/client-1.0.0-SNAPSHOT.jar
+#         pom_file: publish-jars-output/client-*.pom
+#         version_file: client-git/version
 
 resource_types:
 - name: maven-resource
@@ -58,14 +59,21 @@ resources:
     branch: master
     private_key: {{git-private-key}}
 
-- name: client-git
+- name: framework-version
   type: git
   source:
-    uri: {{client-git-uri}}
-    branch: master
+    uri: {{framework-version-uri}}
+    branch: version
     private_key: {{git-private-key}}
 
-- name: framework
+# - name: client-git
+#   type: git
+#   source:
+#     uri: {{client-git-uri}}
+#     branch: master
+#     private_key: {{git-private-key}}
+
+- name: framework-artifact
   type: maven-resource
   source:
     url: {{nexus-uri}}

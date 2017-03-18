@@ -87,7 +87,7 @@ resources:
   type: maven-resource
   source:
     url: {{nexus-uri}}
-    artifact: com.example:framework:pom
+    artifact: com.example:framework:jar
     username: {{nexus-username}}
     password: {{nexus-password}}
     skip_cert_check: true
@@ -96,7 +96,7 @@ resources:
   type: maven-resource
   source:
     url: {{nexus-uri}}
-    artifact: com.example:client:pom
+    artifact: com.example:client:jar
     username: {{nexus-username}}
     password: {{nexus-password}}
     skip_cert_check: true

@@ -36,8 +36,6 @@ jobs:
       file: build-artifacts-output/client-*.jar
       pom_file: build-artifacts-output/client-*.pom
       version_file: build-artifacts-output/version
-  - put: framework-snapshot
-    params: {repository: update-snapshot-output}
 
 resource_types:
 - name: maven-resource

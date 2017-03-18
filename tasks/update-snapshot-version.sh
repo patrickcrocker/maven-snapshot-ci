@@ -5,7 +5,7 @@ set -x # print commands
 
 git clone framework-version update-snapshot-version-output
 
-cd updated-gist
+cd update-snapshot-version-output
 version=$(date +%s)
 echo $version > snapshot
 

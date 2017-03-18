@@ -1,6 +1,6 @@
 #!/bin/ash
 
-set -e
+set -e -x
 
 cd framework-git
 
@@ -18,5 +18,5 @@ cd ..
 cp -R ~/.m2/repository/com/example/framework/$pomVersion/* publish-jars-output/.
 
 if [ -f "publish-jars-output/maven-metadata-local.xml" ]; then
-  cat publish-jars-output/maven-metadata-local.xml | xmllint --xpath '/metadata/versioning/lastUpdated/text()' - 2>/dev/null > publish-jars-output/snapshot
+  cat publish-jars-output/maven-metadata-local.xml | grep lastUpdated | sed -e 's,.*<lastUpdated>\([^<]*\)</lastUpdated>.*,\1,g' > publish-jars-output/snapshot
 fi

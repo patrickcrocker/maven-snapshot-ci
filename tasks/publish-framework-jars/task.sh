@@ -11,13 +11,12 @@ args=""
 
 pomVersion=$(printf 'POM_VERSION=${project.version}\n0\n' | ./mvnw help:evaluate | grep '^POM_VERSION' | cut -d = -f 2)
 
-echo "pomVersion=$pomVersion"
-#./mvnw install $args
+./mvnw install $args
 
 cd ..
 
-#cp -R ~/.m2/repository/com/example/framework/$pomVersion/* publish-jars-output/.
+cp -R ~/.m2/repository/com/example/framework/$pomVersion/* publish-jars-output/.
 
-#ls -al publish-jars-output
+ls -al publish-jars-output
 
-#cat publish-jars-output/maven-metadata-local.xml
+cat publish-jars-output/maven-metadata-local.xml

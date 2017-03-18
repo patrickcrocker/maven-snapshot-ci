@@ -31,7 +31,7 @@ jobs:
       trigger: true
   - task: build-artifacts
     file: pipeline/tasks/build-artifacts.yml
-  - put: framework-artifact
+  - put: client-artifact
     params:
       file: build-artifacts-output/client-*.jar
       pom_file: build-artifacts-output/client-*.pom
@@ -88,6 +88,15 @@ resources:
   source:
     url: {{nexus-uri}}
     artifact: com.example:framework:pom
+    username: {{nexus-username}}
+    password: {{nexus-password}}
+    skip_cert_check: true
+
+- name: client-artifact
+  type: maven-resource
+  source:
+    url: {{nexus-uri}}
+    artifact: com.example:client:pom
     username: {{nexus-username}}
     password: {{nexus-password}}
     skip_cert_check: true

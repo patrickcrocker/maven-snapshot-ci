@@ -1,6 +1,6 @@
 #!/bin/ash
 
-set -e
+set -e -x
 
 cd framework-git
 

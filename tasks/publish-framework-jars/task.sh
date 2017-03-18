@@ -17,3 +17,5 @@ cd ..
 cp -R ~/.m2/repository/com/example/framework/1.0.0-SNAPSHOT/* publish-jars-output/.
 
 ls -al publish-jars-output
+
+cat maven-metadata-local.xml

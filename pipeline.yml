@@ -10,12 +10,18 @@ jobs:
   #   file: ci-git/tasks/test-framework/task.yml
   - task: publish-jars
     file: ci-git/tasks/publish-framework-jars/task.yml
+  - task: update-snapshot-version
+    file: ci-git/tasks/update-snapshot-version.yml
+    params:
+      file: snapshot
   - aggregate:
     - put: framework-artifact
       params:
         file: publish-jars-output/framework-*.jar
         pom_file: publish-jars-output/framework-*.pom
         version_file: framework-version/version
+    # - put: framework-version
+    #   params: {repository: update-snapshot-version-output}
 
 # - name: test-and-publish-client
 #   plan:

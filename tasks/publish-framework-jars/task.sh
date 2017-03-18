@@ -10,7 +10,7 @@ args=""
 [ -n "$MAVEN_REPO_PASSWORD" ] && args="$args -Drepository.password=$MAVEN_REPO_PASSWORD";
 
 output=$(./mvnw help:evaluate -Dexpression=project.version 2>/dev/null)
-pomVersion=$(ehco "$output" | grep -e '^[^\[]')
+pomVersion=$(echo "$output" | grep -e '^[^\[]')
 
 echo "pomVersion=$pomVersion"
 #./mvnw install $args

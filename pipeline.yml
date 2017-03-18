@@ -40,15 +40,15 @@ resources:
     branch: master
     private_key: {{git-private-key}}
 
-- name: framework-version
-  type: semver
-  source:
-    driver: git
-    initial_version: 1.0.0
-    uri: {{framework-version-uri}}
-    branch: {{framework-version-branch}}
-    file: version
-    private_key: {{git-private-key}}
+# - name: framework-version
+#   type: semver
+#   source:
+#     driver: git
+#     initial_version: 1.0.0
+#     uri: {{framework-version-uri}}
+#     branch: {{framework-version-branch}}
+#     file: version
+#     private_key: {{git-private-key}}
 
 - name: framework-snapshot
   type: git

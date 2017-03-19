@@ -42,7 +42,7 @@ resource_types:
   type: docker-image
   source:
     repository: patrickcrocker/maven-resource
-    tag: latest
+    tag: 1.2.0-rc.3
 
 resources:
 - name: pipeline
@@ -86,7 +86,8 @@ resources:
 - name: framework-artifact
   type: maven-resource
   source:
-    url: {{nexus-uri}}
+    url: {{nexus-release-uri}}
+    snapshot_url: {{nexus-snapshot-uri}}
     artifact: com.example:framework:jar
     username: {{nexus-username}}
     password: {{nexus-password}}

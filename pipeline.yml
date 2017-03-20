@@ -96,7 +96,8 @@ resources:
 - name: client-artifact
   type: maven-resource
   source:
-    url: {{nexus-uri}}
+    url: {{nexus-release-uri}}
+    snapshot_url: {{nexus-snapshot-uri}}
     artifact: com.example:client:jar
     username: {{nexus-username}}
     password: {{nexus-password}}

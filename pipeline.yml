@@ -7,18 +7,12 @@ jobs:
     - get: project
       resource: framework-git
       trigger: true
-    - get: framework-snapshot
   - task: build-artifacts
     file: pipeline/tasks/build-artifacts.yml
-  - task: update-snapshot
-    file: pipeline/tasks/update-snapshot.yml
   - put: framework-artifact
     params:
       file: build-artifacts-output/framework-*.jar
       pom_file: build-artifacts-output/framework-*.pom
-      version_file: build-artifacts-output/version
-  - put: framework-snapshot
-    params: {repository: update-snapshot-output}
 
 - name: test-and-publish-client
   plan:
@@ -27,7 +21,7 @@ jobs:
     - get: project
       resource: client-git
       trigger: true
-    - get: framework-snapshot
+    - get: framework-artifact
       trigger: true
   - task: build-artifacts
     file: pipeline/tasks/build-artifacts.yml
@@ -35,14 +29,13 @@ jobs:
     params:
       file: build-artifacts-output/client-*.jar
       pom_file: build-artifacts-output/client-*.pom
-      version_file: build-artifacts-output/version
 
 resource_types:
 - name: maven-resource
   type: docker-image
   source:
     repository: patrickcrocker/maven-resource
-    tag: 1.2.0-rc.5
+    tag: 1.2.0-rc.13
 
 resources:
 - name: pipeline
@@ -57,13 +50,6 @@ resources:
   source:
     uri: {{framework-git-uri}}
     branch: master
-    private_key: {{git-private-key}}
-
-- name: framework-snapshot
-  type: git
-  source:
-    uri: {{framework-snapshot-uri}}
-    branch: {{framework-snapshot-branch}}
     private_key: {{git-private-key}}
 
 - name: client-git
